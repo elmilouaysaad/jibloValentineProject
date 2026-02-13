@@ -65,7 +65,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json({ limit: "100kb" }));
-app.use(express.static(path.join(__dirname)));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 app.post("/api/vote", (req, res) => {
   const choice = req.body?.choice;
@@ -93,6 +93,10 @@ app.get("/api/logs", (req, res) => {
   const data = readVotes();
   const recent = data.votes.slice(-200).reverse();
   return res.json({ ok: true, votes: recent });
+});
+
+app.get("/", (req, res) => {
+  return res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.get("/admin", (req, res) => {

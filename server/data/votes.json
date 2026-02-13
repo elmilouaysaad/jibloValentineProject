@@ -1,3 +1,12 @@
 {
-  "votes": []
+  "votes": [
+    {
+      "choice": "no",
+      "timestamp": "2026-02-13T19:17:41.561Z",
+      "meta": {
+        "stepIndex": 0,
+        "stepText": "No"
+      }
+    }
+  ]
 }
