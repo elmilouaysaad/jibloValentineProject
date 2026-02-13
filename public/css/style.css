@@ -82,6 +82,32 @@ body {
     display: none;
 }
 
+#success-message {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    min-height: 36px;
+}
+
+#typed-text {
+    letter-spacing: 0.5px;
+}
+
+.cursor {
+    display: inline-block;
+    margin-left: 4px;
+    animation: blink 0.8s steps(1) infinite;
+}
+
+@keyframes blink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
+
 .banner-gif {
     width: 100%;
     height: auto;

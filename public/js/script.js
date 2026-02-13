@@ -26,6 +26,11 @@ let language = "english"; // Default language is English
 const no_button = document.getElementById('no-button');
 const yes_button = document.getElementById('yes-button');
 const banner = document.getElementById('banner');
+const questionHeading = document.getElementById('question-heading');
+const typedText = document.getElementById('typed-text');
+
+const SUCCESS_TEXT = "Happy Anniversary & Valentine's Day Salma <3";
+let typingTimerId = null;
 
 const NO_DIR = "./public/outputnobg/no_nobg";
 const YES_DIR = "./public/outputnobg/yes_nobg";
@@ -291,10 +296,38 @@ yes_button.addEventListener('click', () => {
     // hide buttons div
     let buttons = document.getElementsByClassName('buttons')[0];
     buttons.style.display = "none";
+    questionHeading.style.display = "none";
     // show message div
     let message = document.getElementsByClassName('message')[0];
     message.style.display = "block";
+    startTyping(SUCCESS_TEXT);
 });
+
+function startTyping(text) {
+    if (!typedText) {
+        return;
+    }
+
+    if (typingTimerId) {
+        clearTimeout(typingTimerId);
+        typingTimerId = null;
+    }
+
+    typedText.textContent = "";
+    let index = 0;
+
+    const typeNext = () => {
+        typedText.textContent = text.slice(0, index + 1);
+        index += 1;
+        if (index < text.length) {
+            typingTimerId = setTimeout(typeNext, 70);
+        } else {
+            typingTimerId = null;
+        }
+    };
+
+    typeNext();
+}
 
 function changeLanguage() {
     const selectElement = document.getElementById("language-select");
@@ -321,13 +354,4 @@ function changeLanguage() {
         no_button.innerHTML = answers_no[language][clicks];
     }
 
-    // Update success message
-    const successMessage = document.getElementById("success-message");
-    if (language === "french") {
-        successMessage.textContent = "Yepppie, à bientôt :3";
-    } else if (language === "thai") {
-        successMessage.textContent = "ฮูเร่ คืนดีกันแล้วน้า :3";
-    } else {
-        successMessage.textContent = "Yepppie, see you sooonnn :3";
-    }
 }
