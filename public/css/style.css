@@ -1,0 +1,144 @@
+body {
+    background-color: white;
+    background-image: url("../images/bg.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    flex-direction: row;
+    align-items: end;
+    flex-wrap: wrap;
+}
+
+#no-button {
+    margin: 0 10px;
+    color: white;
+    background-color: red;
+    height: 40px !important;
+    width: auto;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#yes-button {
+    margin: 0 10px;
+    color: white;
+    border: none;
+    background-color: green;
+    cursor: pointer;
+    height: 80px;
+    width: 90px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(50% 92%, 18% 64%, 6% 46%, 6% 26%, 20% 12%, 35% 12%, 50% 26%, 65% 12%, 80% 12%, 94% 26%, 94% 46%, 82% 64%);
+}
+
+
+#no-button p {
+    margin: 0;
+    object-fit: contain;
+}
+
+#yes-button p {
+    margin: 0;
+    object-fit: contain;
+    position: relative;
+    z-index: 5;
+}
+
+/* Make responsive for mobile */
+@media (max-width: 768px) {
+    body {
+        padding: 0 20px;
+    }
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.message {
+    display: none;
+}
+
+.banner-gif {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+
+    img {
+        width: auto;
+        height: 250px;
+    }
+}
+
+.language-selector {
+    margin-top: 30px;
+    position: unset;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.language-selector label {
+    margin-right: 10px;
+}
+
+.language-selector select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.creator {
+    text-decoration: none;
+    color: #333;
+}
+
+.creator:visited {
+    text-decoration: none;
+    color: #333;
+}
+
+.creator:hover {
+    text-decoration: underline;
+    color: #555;
+}
+
+/* CSS For Mobile */
+@media (max-width: 768px) {
+    .language-selector {
+        position: unset;
+        margin-top: 30px;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+}

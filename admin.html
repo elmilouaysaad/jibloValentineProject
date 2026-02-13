@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vote Admin</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        color: #222;
+      }
+      h1 {
+        margin-bottom: 10px;
+      }
+      .stats {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .card {
+        padding: 10px 14px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        min-width: 120px;
+      }
+      button {
+        padding: 8px 12px;
+        margin-bottom: 16px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #eee;
+      }
+      th {
+        background: #f7f7f7;
+      }
+      .muted {
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Vote Admin</h1>
+    <div class="stats" id="stats"></div>
+    <button id="refresh">Refresh</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Choice</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody id="log-body"></tbody>
+    </table>
+
+    <script>
+      const statsEl = document.getElementById("stats");
+      const logBody = document.getElementById("log-body");
+      const refreshBtn = document.getElementById("refresh");
+
+      function card(label, value) {
+        return `\n          <div class="card">\n            <div class="muted">${label}</div>\n            <div><strong>${value}</strong></div>\n          </div>\n        `;
+      }
+
+      async function loadStats() {
+        const res = await fetch("/api/stats");
+        const data = await res.json();
+        const stats = data.stats || { yes: 0, no: 0, total: 0 };
+        statsEl.innerHTML = [
+          card("Yes", stats.yes),
+          card("No", stats.no),
+          card("Total", stats.total)
+        ].join("");
+      }
+
+      async function loadLogs() {
+        const res = await fetch("/api/logs");
+        const data = await res.json();
+        const votes = data.votes || [];
+        if (!votes.length) {
+          logBody.innerHTML = '<tr><td colspan="2" class="muted">No votes yet</td></tr>';
+          return;
+        }
+        logBody.innerHTML = votes
+          .map((vote) => {
+            return `<tr><td>${vote.choice}</td><td>${vote.timestamp}</td></tr>`;
+          })
+          .join("");
+      }
+
+      async function loadAll() {
+        await Promise.all([loadStats(), loadLogs()]);
+      }
+
+      refreshBtn.addEventListener("click", loadAll);
+      loadAll();
+    </script>
+  </body>
+</html>
